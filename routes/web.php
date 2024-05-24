@@ -29,3 +29,10 @@ Route::get('/login', function () {
 
 Route::post('/login', LoginController::class)->name('authenticate');
 Route::post('/logout', LogoutController::class)->name('logout');
+
+// Payroll
+Route::prefix('payroll')->group(function () {
+    Route::get('/', function () {
+        return view('pages.payroll.index');
+    });
+});
