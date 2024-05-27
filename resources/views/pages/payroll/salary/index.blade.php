@@ -87,8 +87,10 @@
                         @foreach ($salaries as $salary)
                         <tr>
                             <td>{{ $salary->employee->fullname }}</td>
-                            <td>Rp{{ number_format($salary->salary, 0, ',', '.') }}</td>
-                            <td>Rp{{ number_format($salary->overtime, 0, ',', '.') }}</td>
+                            {{-- <td>Rp{{ number_format($salary->salary, 0, ',', '.') }}</td>
+                            <td>Rp{{ number_format($salary->overtime, 0, ',', '.') }}</td> --}}
+                            <td>{{ $salary->salary }}</td>
+                            <td>{{ $salary->overtime }}</td>
                             <td>
                                 <div class="row">
                                     <div class="col">
