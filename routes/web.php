@@ -38,6 +38,10 @@ Route::middleware('auth')->prefix('payroll')->group(function () {
         return view('pages.payroll.index');
     })->name('payroll');
     Route::get('/absence', [PayrollAbsenceController::class, 'index'])->name('payroll.absence');
+    Route::post('/overtime', [PayrollAbsenceController::class, 'storeOvertime'])->name('overtime.post');
+    Route::delete('/overtime', [PayrollAbsenceController::class, 'destroyOvertime'])->name('overtime.delete');
+    Route::post('/dayoff', [PayrollAbsenceController::class, 'storeDayoff'])->name('dayoff.post');
+    Route::delete('/dayoff', [PayrollAbsenceController::class, 'destroyDayoff'])->name('dayoff.delete');
     Route::get('/salary', [PayrollSalaryController::class, 'index'])->name('payroll.salary');
     // Route::post('/salary', function () {
     //     return response()->json(['msg' => 'hello world']);

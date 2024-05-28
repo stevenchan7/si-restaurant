@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,5 +25,15 @@ class Employee extends Model
     public function salary(): HasOne
     {
         return $this->hasOne(Salary::class);
+    }
+
+    public function overtimes(): HasMany
+    {
+        return $this->hasMany(Overtime::class);
+    }
+
+    public function dayoffs(): HasMany
+    {
+        return $this->hasMany(Dayoff::class);
     }
 }
