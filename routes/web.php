@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PayrollAbsenceController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PayrollSalaryController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +35,9 @@ Route::post('/logout', LogoutController::class)->name('logout');
 
 // Payroll
 Route::middleware('auth')->prefix('payroll')->group(function () {
-    Route::get('/', function () {
-        return view('pages.payroll.index');
-    })->name('payroll');
+    Route::get('/', [PayrollController::class, 'index'])->name('payroll');
+    Route::get('/payroll', [PayrollController::class, 'getPayrollData'])->name('payroll.get');
+    Route::post('/payroll', [PayrollController::class, 'store'])->name('payroll.post');
     Route::get('/absence', [PayrollAbsenceController::class, 'index'])->name('payroll.absence');
     Route::post('/overtime', [PayrollAbsenceController::class, 'storeOvertime'])->name('overtime.post');
     Route::delete('/overtime', [PayrollAbsenceController::class, 'destroyOvertime'])->name('overtime.delete');
