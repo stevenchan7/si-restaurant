@@ -9,6 +9,8 @@ class Inventory extends Model
 {
     use HasFactory;
 
+    protected $table = 'inventories';
+
     protected $fillable = [
         'name',
         'quantity',
@@ -16,4 +18,12 @@ class Inventory extends Model
         'price',
         'supplier'
     ];
+
+    public function getFormattedPriceAttribute()
+    {
+        return 'Rp' . number_format($this->price, 0, ',', '.');
+    }
+
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 }

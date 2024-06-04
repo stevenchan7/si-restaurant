@@ -34,13 +34,14 @@ Route::post('/logout', LogoutController::class)->name('logout');
 // Payroll
 Route::prefix('payroll')->group(function () {
     Route::get('/', function () {
-        Route::get('/', [InventoryController::class, 'index']);
+        return view('pages.payroll.index');
     });
+    
 });
 
 
 Route::prefix('inventory')->group(function () {
-    Route::get('/', function () {
-        return view('pages.inventory.index');
-    });
+    Route::get('/', [InventoryController::class, 'index']);
+    Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('inventory.edit');
+    Route::post('/destroy/{id}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
 });

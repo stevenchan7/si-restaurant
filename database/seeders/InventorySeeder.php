@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Carbon;
+use App\Models\Inventory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 class InventorySeeder extends Seeder
