@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,13 @@ Route::post('/logout', LogoutController::class)->name('logout');
 // Payroll
 Route::prefix('payroll')->group(function () {
     Route::get('/', function () {
-        return view('pages.payroll.index');
+        Route::get('/', [InventoryController::class, 'index']);
+    });
+});
+
+
+Route::prefix('inventory')->group(function () {
+    Route::get('/', function () {
+        return view('pages.inventory.index');
     });
 });
