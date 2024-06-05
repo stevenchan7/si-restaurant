@@ -1,6 +1,7 @@
 <x-layouts.admin-layout>
     @section('css')
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap-combobox/css/bootstrap-combobox.css') }}" rel="stylesheet">
     @endsection
 
     <h5>Absence</h5>
@@ -270,14 +271,14 @@
                     if (overtimeHourInput.attr('disabled')) {
                         overtimeHourInput.removeAttr('disabled');
                     }
-                })
+                });
 
                 // overtime hours handler
                 $('#overtimeForm input[name=overtimeHour]').change(function() {
                     var amount = $('#overtimeForm #overtime-pay').data('amount');
                     var total = $(this).val() * amount;
                     $('#overtimeForm #overtime-total').val("Rp " + total.toLocaleString('id-ID'));
-                })
+                });
 
                 // Overtime form submit handler
                 $('#overtimeForm').submit(function(e) {

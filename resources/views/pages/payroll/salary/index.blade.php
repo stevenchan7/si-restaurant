@@ -145,7 +145,7 @@
                     form.attr('data-service', btn.data('service'));
                     form.attr('data-id', btn.data('salary').id);
                 }
-            })
+            });
 
             // Edit button handler
             $('.edit-btn').click(function() {

@@ -13,7 +13,7 @@ class PayrollAbsenceController extends Controller
     public function index()
     {
         $salaries = Salary::all();
-        $employees = Employee::all();
+        $employees = Employee::has('salary')->get();
         $overtimes = Overtime::all();
         $dayoffs = Dayoff::all();
         return view('pages.payroll.absence.index')
