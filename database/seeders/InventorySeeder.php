@@ -36,7 +36,7 @@ class InventorySeeder extends Seeder
             [
                 'name' => 'Telur',
                 'stock' => 20,
-                'satuan' => 'Kg',
+                'satuan' => 'Krat',
                 'price' => 20000,
             ],
             [
@@ -47,8 +47,6 @@ class InventorySeeder extends Seeder
             ],
         ];
 
-        $supplierID = DB::table('suppliers')->pluck('id');
-
         foreach ($inventories as $inventory){
           $InventoryId = DB::table('inventories')->insertGetId($inventory);
           
@@ -57,9 +55,6 @@ class InventorySeeder extends Seeder
               'updated_at' => Carbon::now()
           ]);
 
-          DB::table('inventories')->where('id', $InventoryId)->update([
-              'supplier_id' => $supplierID->random()
-          ]);
         };
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\Inventory;
+use App\Models\Supplier;
 
 class OrderLogSeeder extends Seeder
 {
@@ -14,49 +16,65 @@ class OrderLogSeeder extends Seeder
      */
     public function run(): void
     {
+        $suppliers = Supplier::all();
+        $inventories = Inventory::all();
         $orderLogs = [
             [
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
+                'inventory_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 10,
                 'satuan' => 'Kg',
                 'price' => 10000,
             ],
             [
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
+                'inventory_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 5,
                 'satuan' => 'Kg',
                 'price' => 5000,
+                
             ],
             [
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
+                'inventory_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 3,
                 'satuan' => 'Liter',
                 'price' => 15000,
             ],
             [
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
+                'inventory_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 2,
                 'satuan' => 'Kg',
                 'price' => 20000,
             ],
             [
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
+                'inventory_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 1,
                 'satuan' => 'Kg',
                 'price' => 50000,
             ]
         ];
 
-        $supplierID = DB::table('suppliers')->pluck('id');
-        $inventoryID = DB::table('inventories')->pluck('id');
-
         foreach ($orderLogs as $orderLog){
-          $orderLogId = DB::table('inventories')->insertGetId($orderLog);
+          $orderLogId = DB::table('order_logs')->insertGetId($orderLog);
           
-          DB::table('inventories')->where('id', $orderLogId)->update([
+          DB::table('order_logs')->where('id', $orderLogId)->update([
               'created_at' => Carbon::now(),
               'updated_at' => Carbon::now()
           ]);
 
-            DB::table('inventories')->where('id', $orderLogId)->update([
-                'supplier_id' => $supplierID->random(),
-                'inventory_id' => $inventoryID->random()
-            ]);
         };
+    }
+
+    private function getRandomSupplierId($suppliers)
+    {
+        return $suppliers->random()->id;
+    }
+
+    private function getRandomInventoryId($inventories)
+    {
+        return $inventories->random()->id;
     }
 }

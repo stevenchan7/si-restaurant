@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('inventories', function (Blueprint $table) {
-            $table->foreignId('supplier_id')->constrained(
-                table: 'suppliers', indexName: 'inventories_suppliers_id'
-            )->onUpdate('cascade')->onDelete('cascade');
-        });
+        // Schema::table('inventories', function (Blueprint $table) {
+        //     $table->foreignId('supplier_id')->constrained(
+        //         table: 'suppliers', indexName: 'inventories_suppliers_id'
+        //     )->onUpdate('cascade')->onDelete('cascade');
+        // });
 
         Schema::table('order_logs', function (Blueprint $table) {
             $table->foreignId('supplier_id')->constrained(
@@ -39,9 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('inventories', function (Blueprint $table) {
-            $table->dropForeign(['supplier_id']);
-        });
 
         Schema::table('order_logs', function (Blueprint $table) {
             $table->dropForeign(['supplier_id', 'inventory_id']);
@@ -51,4 +48,6 @@ return new class extends Migration
             $table->dropForeign(['inventory_id']);
         });
     }
-};
+}; 
+?> 
+
