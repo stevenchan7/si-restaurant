@@ -40,8 +40,14 @@ Route::prefix('payroll')->group(function () {
 });
 
 
+// Route::resource('inventory', [InventoryController::class]);
+
 Route::prefix('inventory')->group(function () {
     Route::get('/', [InventoryController::class, 'index']);
-    Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('inventory.edit');
-    Route::post('/destroy/{id}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+    Route::get('/create', [InventoryController::class, 'create']);
+    Route::post('/', [InventoryController::class, 'store']);
+    Route::get('/{id}', [InventoryController::class, 'show']);
+    Route::get('/{id}/edit', [InventoryController::class, 'edit']);
+    Route::put('/{id}', [InventoryController::class, 'update']);
+    Route::delete('/{id}', [InventoryController::class, 'destroy']);
 });

@@ -17,40 +17,37 @@ class InventorySeeder extends Seeder
         $inventories = [
             [
                 'name' => 'Beras',
-                'quantity' => 100,
+                'stock' => 100,
                 'satuan' => 'Kg',
                 'price' => 10000,
-                'supplier' => 'PT. Beras Sejahtera'
             ],
             [
                 'name' => 'Gula',
-                'quantity' => 50,
+                'stock' => 50,
                 'satuan' => 'Kg',
                 'price' => 5000,
-                'supplier' => 'PT. Gula Manis'
             ],
             [
                 'name' => 'Minyak Goreng',
-                'quantity' => 30,
+                'stock' => 30,
                 'satuan' => 'Liter',
                 'price' => 15000,
-                'supplier' => 'PT. Minyak Sehat'
             ],
             [
                 'name' => 'Telur',
-                'quantity' => 20,
+                'stock' => 20,
                 'satuan' => 'Kg',
                 'price' => 20000,
-                'supplier' => 'PT. Telur Asin'
             ],
             [
                 'name' => 'Daging Sapi',
-                'quantity' => 10,
+                'stock' => 10,
                 'satuan' => 'Kg',
                 'price' => 50000,
-                'supplier' => 'PT. Daging Sapi'
             ],
         ];
+
+        $supplierID = DB::table('suppliers')->pluck('id');
 
         foreach ($inventories as $inventory){
           $InventoryId = DB::table('inventories')->insertGetId($inventory);
@@ -58,6 +55,10 @@ class InventorySeeder extends Seeder
           DB::table('inventories')->where('id', $InventoryId)->update([
               'created_at' => Carbon::now(),
               'updated_at' => Carbon::now()
+          ]);
+
+          DB::table('inventories')->where('id', $InventoryId)->update([
+              'supplier_id' => $supplierID->random()
           ]);
         };
     }

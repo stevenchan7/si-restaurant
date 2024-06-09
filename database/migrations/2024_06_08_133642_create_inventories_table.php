@@ -17,10 +17,11 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('satuan');
             $table->integer('price');
-            $table->string('supplier');
             $table->timestamps();
         });
     }
+
+    
 
     /**
      * Reverse the migrations.
