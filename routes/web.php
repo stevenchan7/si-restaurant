@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
@@ -14,14 +15,26 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//manajemen routing user role
+Route::group(['prefix'=>'admin','middleware' => ['auth', 'role:1']],function(){
+   Route::resource('/dashboard', AdminController::class);
+});
+Route::group(['prefix'=>'customer','middleware' => ['auth', 'role:2']],function(){
+    Route::resource('/dashboard', AdminController::class);
+});
+
+Route::group(['prefix'=>'pegawai','middleware' => ['auth', 'role:3']],function(){
+    Route::resource('/dashboard', AdminController::class);
+});
+//end manajemen routing user role
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    return view('admin.index');
-})->middleware('auth');
+// Route::get('/admin', function () {
+//     return view('admin.index');
+// })->middleware('auth');
 
 Route::get('/login', function () {
     return view('auth.login');

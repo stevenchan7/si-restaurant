@@ -18,18 +18,23 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required', 'max:255']
         ]);
-
-        $user = User::where('email', $validated['email'])->first();
-
-        if (!$user) {
-            return back()->withErrors(['credential' => 'No user found']);
-        }
-
-        if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
+     
+        if (Auth::attempt($validated)) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin');
-        } else {
-            return back()->withErrors(['credential' => 'Incorrect password']);
+            $user = Auth::user();
+        
+            if ($user->hasRole('1')) {
+                return redirect()->intended('admin/dashboard');
+            } elseif ($user->hasRole('2')) {
+                return redirect()->intended('customer/dashboard');
+            } elseif ($user->hasRole('3')) {
+                return redirect()->intended('pegawai/dashboard');
+            }
+            else {
+                return back()->withErrors(['credential' => 'No user found']);
+            }
+        }else{
+            return back()->withErrors(['credential' => 'Incorrect password or mail']);
         }
     }
 }
