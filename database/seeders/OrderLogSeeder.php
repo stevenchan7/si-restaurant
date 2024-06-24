@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Inventory;
-use App\Models\Supplier;
 
 class OrderLogSeeder extends Seeder
 {
@@ -16,44 +15,37 @@ class OrderLogSeeder extends Seeder
      */
     public function run(): void
     {
-        $suppliers = Supplier::all();
         $inventories = Inventory::all();
         $orderLogs = [
             [
-                'supplier_id' => $this->getRandomSupplierId($suppliers),
-                'inventory_id' => $this->getRandomInventoryId($inventories),
+                'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 10,
-                'satuan' => 'Kg',
-                'price' => 10000,
+                'price' => 1000,
+                'total_price' => 1000 * 10,
             ],
             [
-                'supplier_id' => $this->getRandomSupplierId($suppliers),
-                'inventory_id' => $this->getRandomInventoryId($inventories),
+                'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 5,
-                'satuan' => 'Kg',
                 'price' => 5000,
-                
+                'total_price' => 5 * 5000,
             ],
             [
-                'supplier_id' => $this->getRandomSupplierId($suppliers),
-                'inventory_id' => $this->getRandomInventoryId($inventories),
+                'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 3,
-                'satuan' => 'Liter',
                 'price' => 15000,
+                'total_price' => 3 * 15000,
             ],
             [
-                'supplier_id' => $this->getRandomSupplierId($suppliers),
-                'inventory_id' => $this->getRandomInventoryId($inventories),
+                'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 2,
-                'satuan' => 'Kg',
                 'price' => 20000,
+                'total_price' => 2 * 20000,
             ],
             [
-                'supplier_id' => $this->getRandomSupplierId($suppliers),
-                'inventory_id' => $this->getRandomInventoryId($inventories),
+                'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 1,
-                'satuan' => 'Kg',
                 'price' => 50000,
+                'total_price' => 1 * 50000,
             ]
         ];
 
@@ -66,11 +58,6 @@ class OrderLogSeeder extends Seeder
           ]);
 
         };
-    }
-
-    private function getRandomSupplierId($suppliers)
-    {
-        return $suppliers->random()->id;
     }
 
     private function getRandomInventoryId($inventories)

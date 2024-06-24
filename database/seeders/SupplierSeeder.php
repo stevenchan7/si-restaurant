@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Supplier;
-use App\Models\Inventory;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +14,6 @@ class SupplierSeeder extends Seeder
      */
     public function run(): void
     {
-        $inventories = Inventory::all();
 
         $suppliers = [
             [
@@ -24,35 +21,30 @@ class SupplierSeeder extends Seeder
                 'email' => 'berassejahtera@gmail.com',
                 'phone' => '081234567890',
                 'address' => 'Jl. Raya No. 1',
-                'inventory_id' => $this->getRandomInventoryId($inventories),
             ],
             [
                 'name' => 'PT. Gula Manis',
                 'email' => 'gulamanis@gmail.com',
                 'phone' => '081234567891',
                 'address' => 'Jl. Raya No. 2',
-                'inventory_id' => $this->getRandomInventoryId($inventories),
             ],
             [
                 'name' => 'PT. Minyak Goreng',
                 'email' => 'minyakgoreng@gmail.com',
                 'phone' => '081234567892',
                 'address' => 'Jl. Raya No. 3',
-                'inventory_id' => $this->getRandomInventoryId($inventories),
             ],
             [
                 'name' => 'PT. Telur Asin',
                 'email' => 'telusasin@gmail.com',
                 'phone' => '081234567893',
                 'address' => 'Jl. Raya No. 4',
-                'inventory_id' => $this->getRandomInventoryId($inventories),
             ],
             [
                 'name' => 'PT. Daging Sapi',
                 'email' => 'dagingsapi@gmail.com',
                 'phone' => '081234567894',
                 'address' => 'Jl. Raya No. 5',
-                'inventory_id' => $this->getRandomInventoryId($inventories),
             ],
         ];
        
@@ -63,10 +55,5 @@ class SupplierSeeder extends Seeder
               'updated_at' => Carbon::now()
           ]);
         };
-    }
-
-    private function getRandomInventoryId($inventories)
-    {
-        return $inventories->random()->id;
     }
 }

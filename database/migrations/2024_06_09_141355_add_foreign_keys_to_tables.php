@@ -11,27 +11,32 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table('inventories', function (Blueprint $table) {
-        //     $table->foreignId('supplier_id')->constrained(
-        //         table: 'suppliers', indexName: 'inventories_suppliers_id'
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->foreignId('supplier_id')->constrained(
+                table: 'suppliers', indexName: 'ingredients_suppliers_id'
+            )->onUpdate('cascade')->onDelete('cascade');
+        });
+
+        Schema::table('order_logs', function (Blueprint $table) {
+            $table->foreignId('ingredient_id')->constrained(
+                table: 'ingredients', indexName: 'order_logs_ingredients_id'
+            )->onUpdate('cascade')->onDelete('cascade');
+        });
+
+        // Schema::table('suppliers', function (Blueprint $table) {
+        //     $table->foreignId('inventory_id')->constrained(
+        //         table: 'inventories', indexName: 'suppliers_inventories_id'
         //     )->onUpdate('cascade')->onDelete('cascade');
         // });
 
-        Schema::table('order_logs', function (Blueprint $table) {
-            $table->foreignId('supplier_id')->constrained(
-                table: 'suppliers', indexName: 'order_logs_suppliers_id'
-            )->onUpdate('cascade')->onDelete('cascade');
-
-            $table->foreignId('inventory_id')->constrained(
-                table: 'inventories', indexName: 'order_logs_inventories_id'
+        Schema::table('menu_ingredients', function (Blueprint $table) {
+            $table->foreignId('ingredient_id')->constrained(
+                table: 'ingredients', indexName: 'menu_ingredients_ingredients_id'
             )->onUpdate('cascade')->onDelete('cascade');
         });
 
-        Schema::table('suppliers', function (Blueprint $table) {
-            $table->foreignId('inventory_id')->constrained(
-                table: 'inventories', indexName: 'suppliers_inventories_id'
-            )->onUpdate('cascade')->onDelete('cascade');
-        });
+        //add the menu here
+
     }
 
     /**
@@ -41,11 +46,15 @@ return new class extends Migration
     {
 
         Schema::table('order_logs', function (Blueprint $table) {
-            $table->dropForeign(['supplier_id', 'inventory_id']);
+            $table->dropForeign(['ingredient_id']);
         });
 
-        Schema::table('suppliers', function (Blueprint $table) {
-            $table->dropForeign(['inventory_id']);
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->dropForeign(['supplier_id']);
+        });
+
+        Schema::table('menu_ingredients', function (Blueprint $table) {
+            $table->dropForeign(['ingredient_id']);
         });
     }
 }; 

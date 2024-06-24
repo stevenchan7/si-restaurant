@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('order_logs', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->string('satuan');
             $table->integer('price');
+            $table->integer('total_price');
             $table->timestamps();
         });
     }

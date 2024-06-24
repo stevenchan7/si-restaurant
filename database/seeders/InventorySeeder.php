@@ -3,10 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Support\Carbon;
+use App\Models\Supplier;
 use App\Models\Inventory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+
 class InventorySeeder extends Seeder
 {
     /**
@@ -14,47 +16,63 @@ class InventorySeeder extends Seeder
      */
     public function run(): void
     {
+        $suppliers = Supplier::all();
         $inventories = [
             [
                 'name' => 'Beras',
-                'stock' => 100,
-                'satuan' => 'Kg',
+                'stock' => 0,
+                'unit' => 'Kg',
                 'price' => 10000,
+                'minimum_stock' => 20,
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
             ],
             [
                 'name' => 'Gula',
-                'stock' => 50,
-                'satuan' => 'Kg',
+                'stock' => 0,
+                'unit' => 'Kg',
                 'price' => 5000,
+                'minimum_stock' => 10,
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
             ],
             [
                 'name' => 'Minyak Goreng',
-                'stock' => 30,
-                'satuan' => 'Liter',
+                'stock' => 0,
+                'unit' => 'Liter',
                 'price' => 15000,
+                'minimum_stock' => 5,
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
             ],
             [
                 'name' => 'Telur',
-                'stock' => 20,
-                'satuan' => 'Krat',
+                'stock' => 0,
+                'unit' => 'Krat',
                 'price' => 20000,
+                'minimum_stock' => 10,
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
             ],
             [
                 'name' => 'Daging Sapi',
-                'stock' => 10,
-                'satuan' => 'Kg',
+                'stock' => 0,
+                'unit' => 'Kg',
                 'price' => 50000,
+                'minimum_stock' => 5,
+                'supplier_id' => $this->getRandomSupplierId($suppliers),
             ],
         ];
 
         foreach ($inventories as $inventory){
-          $InventoryId = DB::table('inventories')->insertGetId($inventory);
+          $InventoryId = DB::table('ingredients')->insertGetId($inventory);
           
-          DB::table('inventories')->where('id', $InventoryId)->update([
+          DB::table('ingredients')->where('id', $InventoryId)->update([
               'created_at' => Carbon::now(),
               'updated_at' => Carbon::now()
           ]);
 
         };
+    }
+
+    private function getRandomSupplierId($suppliers)
+    {
+        return $suppliers->random()->id;
     }
 }
