@@ -19,6 +19,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    {{-- JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    {{-- Custom style for specific page --}}
+    @yield('css')
 
 </head>
 
@@ -43,7 +48,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('admin.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -55,6 +60,22 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+
+            <!-- Nav Item - Pages Collapse Menu Payroll -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('payroll') }}" data-toggle="collapse"
+                    data-target="#collapsePayroll" aria-expanded="true" aria-controls="collapsePayroll">
+                    <i class="fa-solid fa-money-check-dollar"></i>
+                    <span>Payroll</span>
+                </a>
+                <div id="collapsePayroll" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('payroll') }}">Dashboard</a>
+                        <a class="collapse-item" href="{{ route('payroll.absence') }}">Absence</a>
+                        <a class="collapse-item" href="{{ route('payroll.salary') }}">Salary</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -426,13 +447,11 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    {{-- SWAL --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-
+    {{-- Custom scripts --}}
+    @yield('script')
 </body>
 
 </html>
