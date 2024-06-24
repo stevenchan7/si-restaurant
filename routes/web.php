@@ -7,6 +7,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PayrollAbsenceController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PayrollSalaryController;
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
