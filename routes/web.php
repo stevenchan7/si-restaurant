@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PayrollAbsenceController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PayrollSalaryController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +57,28 @@ Route::middleware('auth')->prefix('payroll')->group(function () {
 // Token
 Route::get('/token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
+});
+
+
+// Route::resource('inventory', [InventoryController::class]);
+
+Route::prefix('inventory')->group(function () {
+    Route::get('/', [InventoryController::class, 'index']);
+    Route::get('/create', [InventoryController::class, 'create']);
+    Route::post('/', [InventoryController::class, 'store']);
+    Route::get('/{inventory}', [InventoryController::class, 'show']);
+    Route::get('/{id}/edit', [InventoryController::class, 'edit']);
+    Route::post('/{id}/order', [InventoryController::class, 'order']);
+    Route::put('/{id}', [InventoryController::class, 'update']);
+    Route::delete('/{id}', [InventoryController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->group(function(){
+    Route::get('/', [SupplierController::class, 'index']);
+    Route::get('/create', [SupplierController::class, 'create']);
+    Route::post('/', [SupplierController::class, 'store']);
+    Route::get('/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+    Route::put('/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
+    Route::delete('/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+    Route::get('/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
 });
