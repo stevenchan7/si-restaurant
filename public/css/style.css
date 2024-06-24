@@ -1,0 +1,294 @@
+html, body, * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+a {
+    text-decoration: none; 
+    color: white;
+}
+
+hr {
+    background: background: #896D3C;
+}
+
+/* typography rule */
+.heading1 {
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.heading2 {
+    font-size: 48px;
+}
+
+.heading3 {
+    font-size: 40px;
+}
+
+.heading4 {
+    font-size: 30px;
+}
+
+.body-text {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.body-text-small {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.cp-footer {
+    ont-size: 14px;
+}
+/* typography rule */
+
+/* navbar */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.nav-link {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.nav-color {
+    background-color: #080503;
+    transition: all ease-in-out 0.3s;
+}
+
+.bg-transparent {
+    transition: all ease-in-out 0.3s;
+}
+/* navbar */
+
+/* background */
+.banner {
+    background: url('/img/bg.png') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-booking {
+    background: url('/img/bg.png') no-repeat center center;
+    background-size: cover;
+}
+
+.banner-kitchen {
+    background: url('/img/kitchen.png') no-repeat center center;
+    background-size: cover;
+}
+/* background */
+
+/* container spacing */
+.container-home {
+    margin-top: 253px;
+    margin-bottom: 253px;
+}
+
+.container-about {
+    margin-top: 115px;
+    margin-bottom: 115px;
+}
+
+.container-menu {
+    margin-bottom: 115px;
+}
+
+.container-reservation {
+    margin-bottom: 115px;
+}
+
+.container-booking {
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
+
+.container-kitchen {
+    margin-top: 100px;
+    margin-bottom: 90px;
+}
+/* container spacing */
+
+/* button style */
+.btn-home {
+    width: 280px;
+    height: 50px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 2.7px;
+    background: #896D3C;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, font-weight 0.3s;
+    border: none;
+}
+
+.btn-home:hover,
+.btn-home:focus {
+    background: #F9F3DD;
+    color: #896D3C;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.btn-home:active {
+    background: #F9F3DD;
+    color: #896D3C;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    transition: none;
+}
+
+.btn-form {
+    height: 60px;
+    border-radius: 5px;
+    background: #896D3C;
+    color: #FFFFFF;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, font-weight 0.3s;
+    border: none;
+}
+
+.btn-form:hover,
+.btn-form:focus {
+    background: #F9F3DD;
+    color: #896D3C;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.btn-form:active {
+    background: #F9F3DD;
+    color: #896D3C;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    transition: none;
+}
+
+.btn-style1 {
+    width: 198px;
+    height: 50px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    background: #896D3C;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, font-weight 0.3s;
+    border: none;
+}
+
+.btn-style1:hover,
+.btn-style1:focus {
+    background: #F9F3DD;
+    color: #896D3C;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.btn-style1:active {
+    background: #F9F3DD;
+    color: #896D3C;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    transition: none;
+}
+
+.btn-style2 {
+    width: 200px;
+    height: 70px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    background: green;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, font-weight 0.3s;
+    border: none;
+}
+
+.btn-style2:hover,
+.btn-style2:focus {
+    background: #F9F3DD;
+    color: green;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.btn-style2:active {
+    background: #F9F3DD;
+    color: green;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    transition: none;
+}
+/* button style */
+
+.form-control-contact {
+    height: 175px;
+}
+
+.form-control-booking {
+    border-radius: 5px;
+    border: 1px solid #E7E7E7;
+    background: rgba(102, 102, 102, 0.25);
+}
+
+.form-control-booking::placeholder {
+    color: #D3D3D3;
+}
+
+input[type="time"], input[type="date"] {
+    color: #D3D3D3;
+}
+
+.img-style1 {
+    height: 100%;
+    object-fit: cover;
+}
+
+.bg-form {
+    background: rgba(137, 109, 60, 0.20);
+    backdrop-filter: blur(7.5px);
+}
+
+.table-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #D3D3D3;
+    color: #896D3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+

@@ -8,6 +8,7 @@ use App\Http\Controllers\PayrollAbsenceController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PayrollSalaryController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,23 @@ use App\Http\Controllers\InventoryController;
 |
 */
 
+// Home
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('landing_page.home');
+})->name('home');
+
+// Route::get('/reservation', function () {
+//     return view('reservation.reservation');
+// })->name('reservation');
+
+// Reservation
+Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
+Route::post('/store', [ReservationController::class, 'store']);
+
+// Kitchen
+Route::get('/kitchen', function () {
+    return view('kitchen.kitchen');
+})->name('kitchen');
 
 Route::get('/admin', function () {
     return view('admin.index');
@@ -73,7 +88,7 @@ Route::prefix('inventory')->group(function () {
     Route::delete('/{id}', [InventoryController::class, 'destroy']);
 });
 
-Route::prefix('suppliers')->group(function(){
+Route::prefix('suppliers')->group(function () {
     Route::get('/', [SupplierController::class, 'index']);
     Route::get('/create', [SupplierController::class, 'create']);
     Route::post('/', [SupplierController::class, 'store']);
