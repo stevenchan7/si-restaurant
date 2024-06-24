@@ -35,7 +35,12 @@ return new class extends Migration
             )->onUpdate('cascade')->onDelete('cascade');
         });
 
-        //add the menu here
+        Schema::table('menu_ingredients', function (Blueprint $table) {
+            $table->foreignId('recipe_id')->constrained(
+                table: 'recipes', indexName: 'menu_recipes_ingredients_id'
+            )->onUpdate('cascade')->onDelete('cascade');
+        });
+
 
     }
 
@@ -55,6 +60,7 @@ return new class extends Migration
 
         Schema::table('menu_ingredients', function (Blueprint $table) {
             $table->dropForeign(['ingredient_id']);
+            $table->dropForeign(['recipe_id']);
         });
     }
 }; 

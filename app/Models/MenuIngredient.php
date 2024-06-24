@@ -14,13 +14,21 @@ class MenuIngredient extends Model
     protected $table = 'menu_ingredients';
 
     protected $fillable = [
+        'ingredient_id',
+        'recipe_id',
         'ingredient_amount'
     ];
 
-    public function inventory(): HasMany {
-        return $this->hasMany(Inventory::class);
+    public function inventory()
+    {
+        return $this->belongsTo(Inventory::class);
     }
 
-    protected $primaryKey = 'ingredient_id';
+    public function recipe()
+    {
+        return $this->belongsTo(Recipe::class);
+    }
+
+    protected $primaryKey = 'id';
     public $timestamps = true;
 }

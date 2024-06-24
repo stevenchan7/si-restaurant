@@ -17,35 +17,36 @@ class SupplierSeeder extends Seeder
 
         $suppliers = [
             [
-                'name' => 'PT. Beras Sejahtera',
+                'name' => 'PT Indah Jaya',
                 'email' => 'berassejahtera@gmail.com',
                 'phone' => '081234567890',
                 'address' => 'Jl. Raya No. 1',
             ],
             [
-                'name' => 'PT. Gula Manis',
+                'name' => 'PT. Masyarakat',
                 'email' => 'gulamanis@gmail.com',
                 'phone' => '081234567891',
                 'address' => 'Jl. Raya No. 2',
             ],
             [
-                'name' => 'PT. Minyak Goreng',
+                'name' => 'PT. Bakti Gila',
                 'email' => 'minyakgoreng@gmail.com',
                 'phone' => '081234567892',
                 'address' => 'Jl. Raya No. 3',
             ],
             [
-                'name' => 'PT. Telur Asin',
+                'name' => 'PT. Wibu Lapar',
                 'email' => 'telusasin@gmail.com',
                 'phone' => '081234567893',
                 'address' => 'Jl. Raya No. 4',
             ],
             [
-                'name' => 'PT. Daging Sapi',
+                'name' => 'PT. Makan Enak',
                 'email' => 'dagingsapi@gmail.com',
                 'phone' => '081234567894',
                 'address' => 'Jl. Raya No. 5',
             ],
+            
         ];
        
         foreach ($suppliers as $supplier){

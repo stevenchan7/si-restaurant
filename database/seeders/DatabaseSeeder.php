@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             OrderLogSeeder::class
         ]);
         $this->call([
+            RecipesSeeder::class
+        ]);
+        $this->call([
             MenuIngredientsSeeder::class
         ]);
     }

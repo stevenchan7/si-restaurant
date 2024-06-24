@@ -15,48 +15,82 @@ class MenuIngredientsSeeder extends Seeder
     public function run(): void
     {
         $ingredients = DB::table('ingredients')->get();
+        $recipes = DB::table('recipes')->get();
         $menuIngredients = [
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 10,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.3,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 5,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.2,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 3,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.15,
             ],
             [
- 
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 2,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.23,
             ],
             [
- 
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 1,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.5,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 10,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.1,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 5,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.6,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 3,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.10,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 2,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.25,
             ],
             [
-                'ingredient_id' => $this->getRandomSupplierId($ingredients),
-                'ingredient_quantity' => 1,
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.35,
+            ],
+            [
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.03,
+            ],
+            [
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.01,
+            ],
+            [
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.02,
+            ],
+            [
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.05,
+            ],
+            [
+                'recipe_id' => $this->getRandomRecipesId($recipes),
+                'ingredient_id' => $this->getRandomIngredientsId($ingredients),
+                'ingredient_amount' => 0.07,
             ],
         ];
 
@@ -66,8 +100,12 @@ class MenuIngredientsSeeder extends Seeder
         }
     }
 
-    private function getRandomSupplierId($ingredients)
+    private function getRandomIngredientsId($ingredients)
     {
         return $ingredients->random()->id;
+    }
+    private function getRandomRecipesId($recipes)
+    {
+        return $recipes->random()->id;
     }
 }

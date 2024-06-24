@@ -4,24 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateMenuIngredientsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('menu_ingredients', function (Blueprint $table) {
-            $table->float('ingredient_quantity');
+            $table->id();
+            $table->decimal('ingredient_amount', 8, 2); // Adjust data type based on your needs
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('menu_ingredients');
     }
-};
+}
