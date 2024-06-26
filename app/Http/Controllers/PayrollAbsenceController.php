@@ -123,7 +123,7 @@ class PayrollAbsenceController extends Controller
     public function destroyDayoff(Request $request)
     {
         $validated = $request->validate([
-            'id' => ['required', 'numeric', 'exists:overtimes,id']
+            'id' => ['required', 'numeric', 'exists:dayoffs,id']
         ]);
 
         Dayoff::destroy($validated['id']);
