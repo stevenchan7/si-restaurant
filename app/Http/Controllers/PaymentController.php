@@ -15,7 +15,6 @@ class PaymentController extends Controller
     {
         $id = $request->route('id');
         $payments = DB::table('payments')->where('order_id',$id)->get();
-        dump($payments);
         return view('pages.menu.payment', compact('payments','id'));
     }
     public function update(Request $request)
