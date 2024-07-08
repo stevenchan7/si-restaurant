@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderDetail;
+use App\Models\Salary;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class GenerateReportController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function generateReport(Request $request)
     {
         $validated = $request->validate([
             'from' => ['required', 'date'],
@@ -42,6 +43,19 @@ class GenerateReportController extends Controller
 
         $pdf = Pdf::loadView('admin.report', $data);
 
+        return $pdf->stream();
+    }
+    public function generateSalaryReport(Request $request)
+    {
+        $today = date("Y-m-d H:i:s");
+        $salaries = Salary::all();
+
+        $data = array(
+            'date' => $today,
+            'salaries' => $salaries
+        );
+
+        $pdf = Pdf::loadView('admin.salaryReport', $data);
         return $pdf->stream();
     }
 }

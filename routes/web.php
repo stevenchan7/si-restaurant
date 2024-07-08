@@ -52,7 +52,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/dashboard-data-by-date', [PayrollController::class, 'dashboardDataByDate'])->name('admin.dashboardDataByDate');
     Route::get('/admin/dashboard', [PayrollController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/generate-report', GenerateReportController::class)->name('generateReport');
+    Route::get('/admin/generate-report', [GenerateReportController::class, 'generateReport'])->name('generateReport');
+    Route::get('/admin/generate-salary-report', [GenerateReportController::class, 'generateSalaryReport'])->name('generateSalaryReport');
 });
 
 // Token
