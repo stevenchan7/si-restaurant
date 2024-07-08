@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -249,7 +248,8 @@
                                 </h6>
                                 @if($notifications->count() > 0)
                                     @foreach ($notifications as $notification)
-                                    <a class="dropdown-item d-flex align-items-center notification" href="#" data-id="{{ $notification->id }}"                                  <div class="mr-3">
+                                    <a class="dropdown-item d-flex align-items-center notification" href="#" data-id="{{ $notification->id }}">
+                                            <div class="mr-3">
                                                 <div class="icon-circle bg-primary">
                                                     <i class="fas fa-file-alt text-white"></i>
                                                 </div>
