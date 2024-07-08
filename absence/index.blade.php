@@ -198,21 +198,24 @@
                         </tfoot>
                         <tbody>
                             @foreach ($dayoffs as $dayoff)
-                            <td>{{ $dayoff->employee->fullname }}</td>
-                            <td>{{ $dayoff->date }}</td>
-                            <td>{{ $dayoff->paid }}</td>
-                            <td>
-                                <div class="row">
-                                    {{-- <div class="col">
-                                        <button class="btn btn-primary edit-btn" data-toggle="modal" data-service="edit"
-                                            data-target="#createSalaryModal" data-salary="{{ $salary }}">Edit</button>
-                                    </div> --}}
-                                    <div class="col">
-                                        <button class="btn btn-danger delete-btn" data-model="dayoff"
-                                            data-id="{{ $dayoff->id }}">Delete</button>
+                            <tr>
+                                <td>{{ $dayoff->employee->fullname }}</td>
+                                <td>{{ $dayoff->date }}</td>
+                                <td>{{ $dayoff->paid }}</td>
+                                <td>
+                                    <div class="row">
+                                        {{-- <div class="col">
+                                            <button class="btn btn-primary edit-btn" data-toggle="modal"
+                                                data-service="edit" data-target="#createSalaryModal"
+                                                data-salary="{{ $salary }}">Edit</button>
+                                        </div> --}}
+                                        <div class="col">
+                                            <button class="btn btn-danger delete-btn" data-model="dayoff"
+                                                data-id="{{ $dayoff->id }}">Delete</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -426,7 +429,7 @@
                                     element += '</div>';
     
                                     // Add error message before form
-                                    $('#overtimeForm').prepend(element);
+                                    $('h5').prepend(element);
                                 }
                             })
                         }
