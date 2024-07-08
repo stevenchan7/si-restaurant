@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -16,32 +17,38 @@ class OrderLogSeeder extends Seeder
     public function run(): void
     {
         $inventories = Inventory::all();
+        $user = Employee::all();
         $orderLogs = [
             [
+                'operator_id' => $this->getRandomInventoryId($user),
                 'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 10,
                 'price' => 1000,
                 'total_price' => 1000 * 10,
             ],
             [
+                'operator_id' => $this->getRandomInventoryId($user),
                 'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 5,
                 'price' => 5000,
                 'total_price' => 5 * 5000,
             ],
             [
+                'operator_id' => $this->getRandomInventoryId($user),
                 'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 3,
                 'price' => 15000,
                 'total_price' => 3 * 15000,
             ],
             [
+                'operator_id' => $this->getRandomInventoryId($user),
                 'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 2,
                 'price' => 20000,
                 'total_price' => 2 * 20000,
             ],
             [
+                'operator_id' => $this->getRandomInventoryId($user),
                 'ingredient_id' => $this->getRandomInventoryId($inventories),
                 'quantity' => 1,
                 'price' => 50000,

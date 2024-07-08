@@ -5,10 +5,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class Inventory extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'ingredients';
 
@@ -26,28 +27,26 @@ class Inventory extends Model
         return 'Rp' . number_format($this->price, 0, ',', '.');
     }
 
-    // public function getFormattedCreatedAtAttribute()
-    // {
-    //     return $this->created_at->format('F j, Y, g:i a');
-    // }
-
-    public function supplier(): BelongsTo {
+    public function supplier(): BelongsTo
+    {
         return $this->belongsTo(Supplier::class);
     }
 
-    public function orderLog(): BelongsTo
+    public function orderLogs(): HasMany
     {
-        return $this->belongsTo(OrderLog::class);
+        return $this->hasMany(OrderLog::class, 'ingredient_id');
     }
 
-    public function menuIngredient(): HasMany {
+    public function menuIngredients(): HasMany
+    {
         return $this->hasMany(MenuIngredient::class);
     }
 
-    // public function menuIngredient(): BelongsTo {
-    //     return $this->belongsTo(MenuIngredient::class);
-    // }
-
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class, 'ingredient_id');
+    }
+    
     protected $primaryKey = 'id';
     public $timestamps = true;
 }

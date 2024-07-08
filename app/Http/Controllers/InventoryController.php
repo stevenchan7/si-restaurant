@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\OrderLog;
 use App\Models\Supplier;
 use App\Models\Inventory;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -14,17 +16,9 @@ class InventoryController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        // If there's a search query, filter the inventories based on the name
-        if ($search) {
-            $inventories = Inventory::where('name', 'like', '%' . $search . '%')->get();
-        } else {
-            // If there's no search query, retrieve all inventories
-            $inventories = Inventory::all();
-        }
-        
-        return view('pages.inventory.index', compact('inventories'));
+        $inventories = Inventory::all();
+        $employees = Employee::all();
+        return view('pages.inventory.index', compact('inventories', 'employees'));
     }
 
     /**
@@ -105,7 +99,8 @@ class InventoryController extends Controller
 
         // Validate the request
         $validator = Validator::make($request->all(), [
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1',
+            'employee' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -118,6 +113,15 @@ class InventoryController extends Controller
         if (!$inventory) {
             return redirect()->back()->with('error', 'Inventory item not found');
         }
+
+        // Create the order log
+        $orderLog = new OrderLog();
+        $orderLog->quantity = $request->input('quantity');
+        $orderLog->price = $inventory->price;
+        $orderLog->total_price = $inventory->price * $request->input('quantity');
+        $orderLog->employee_id = $request->input('employee');
+        $orderLog->ingredient_id = $id;
+        $orderLog->save();
 
         // Update the inventory stock
         $inventory->stock += $request->input('quantity');
@@ -149,4 +153,23 @@ class InventoryController extends Controller
 
         return redirect('/inventory')->with('success', 'Stock updated successfully');
     }
+
+    public function showLogs()
+    {
+        $logs = OrderLog::all();
+        return view('pages.inventory.log', compact('logs'));
+    }
+
+    // public function subtractStock(Request $request, string $id)
+    // {
+    //     $validatedData = $request->validate([
+    //         'stock' => 'required|numeric',
+    //     ]);
+
+    //     $inventory = Inventory::find($id);
+    //     $inventory->stock -= $validatedData['stock'];
+    //     $inventory->save();
+
+    //     return redirect('/inventory')->with('success', 'Stock updated successfully');
+    // }
 }

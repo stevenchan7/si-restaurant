@@ -32,6 +32,7 @@ class SupplierController extends Controller
             'name' => 'required|max:255',
             'address' => 'required|max:255',
             'phone' => 'required|numeric',
+            'email' => 'required|email|max:255',
         ]);
 
         Supplier::create($validatedData);
