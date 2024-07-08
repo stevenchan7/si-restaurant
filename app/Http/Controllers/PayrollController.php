@@ -132,8 +132,21 @@ class PayrollController extends Controller
             ->orderBy('month', 'asc')
             ->get();
 
+        // pendapatan per bulan
+        $revenuePerMonth = OrderDetail::join('menus', 'order_details.menu_id', '=', 'menus.id')
+        ->where('order_details.created_at', '>=', $from)
+        ->selectRaw('DATE_FORMAT(order_details.created_at, "%Y-%m") as month, SUM(order_details.total) as sum_total, SUM(order_details.qty * menus.base_price) as sum_modal')
+        ->groupBy('month')
+        ->orderBy('month', 'asc')
+        ->get()
+        ->map(function ($item) {
+            $item->revenue = $item->sum_total - $item->sum_modal;
+            return $item;
+        });
+
         return view('admin.index')
-            ->with('orderTotalPerMonth', $orderTotalPerMonth);
+            ->with('orderTotalPerMonth', $orderTotalPerMonth)
+            ->with('revenuePerMonth', $revenuePerMonth);
     }
 
     public function dashboardDataByDate(Request $request)
