@@ -41,7 +41,17 @@ return new class extends Migration
             )->onUpdate('cascade')->onDelete('cascade');
         });
 
+        Schema::table('order_logs', function(Blueprint $table) {
+            $table->foreignId('employee_id')->constrained(
+                table: 'employees', indexName: 'order_logs_employees_id'
+            )->onUpdate('cascade')->onDelete('cascade');
+        });
 
+        Schema::table('notifications', function(Blueprint $table){
+            $table->foreignId('ingredient_id')->constrained(
+                table: 'ingredients', indexName: 'notifications_ingredients_id'
+            )->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**
@@ -52,6 +62,7 @@ return new class extends Migration
 
         Schema::table('order_logs', function (Blueprint $table) {
             $table->dropForeign(['ingredient_id']);
+            $table->dropColumn('ingredient_id');
         });
 
         Schema::table('ingredients', function (Blueprint $table) {
@@ -61,6 +72,12 @@ return new class extends Migration
         Schema::table('menu_ingredients', function (Blueprint $table) {
             $table->dropForeign(['ingredient_id']);
             $table->dropForeign(['recipe_id']);
+        });
+        Schema::table('order_logs', function (Blueprint $table) {
+            $table->dropForeign(['employee_id']);
+        });
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropForeign(['ingredient_id']);
         });
     }
 }; 

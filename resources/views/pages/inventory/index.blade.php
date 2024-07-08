@@ -7,22 +7,23 @@
 
     <h5>Inventory</h5>
 
-    <div class="row justify-content-end">
-        <div class="col-md-3 mb-3">
-            {{-- <div class="card shadow-sm"> --}}
-                <div class="card-body text-center">
-                    <a href="/suppliers" class="btn btn-primary w-100">View Supplier</a>
-                </div>
-            {{-- </div> --}}
+    <div class="d-flex justify-content-end mb-3">
+        <div class="md-3 mb-3">
+            <div class="card-body text-center">
+                <a href="/orderLog" class="btn btn-secondary w-100">Log Order</a>
+            </div>
         </div>
-        <div class="col-md-3 mb-3">
-            {{-- <div class="card shadow-sm"> --}}
-                <div class="card-body text-center">
-                    <a href="/inventory/create" class="btn btn-primary w-100">
-                        <i class="fa-regular fa-plus me-2"></i>Add new Inventory
-                    </a>
-                </div>
-            {{-- </div> --}}
+        <div class="ml-3 mb-3">
+            <div class="card-body text-center">
+                <a href="/suppliers" class="btn btn-primary w-100">View Supplier</a>
+            </div>
+        </div>
+        <div class="ml-3 mb-3">
+            <div class="card-body text-center">
+                <a href="/inventory/create" class="btn btn-primary w-100">
+                    <i class="fa-regular fa-plus me-2"></i>Add new Inventory
+                </a>
+            </div>
         </div>
     </div>
 
@@ -45,8 +46,9 @@
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Stock</th>
-                                    <th>Unit</th>
+                                    {{-- <th>Unit</th> --}}
                                     <th>Price/Unit</th>
+                                    <th>Minimum Stock</th>
                                     <th>Supplier</th>
                                     <th>Last Restock</th>
                                     <th>Actions</th>
@@ -56,15 +58,16 @@
                                 @foreach($inventories as $inventory)
                                     <tr>
                                         <td>{{ $inventory->name }}</td>
-                                        <td>{{ $inventory->stock }}</td>
-                                        <td>{{ $inventory->unit }}</td>
+                                        <td>{{ $inventory->stock . " " . $inventory->unit }}</td>
+                                        {{-- <td>{{ $inventory->unit }}</td> --}}
                                         <td>{{ $inventory->formatted_price }}</td>
+                                        <td>{{ $inventory->minimum_stock . " " . $inventory->unit }}</td>
                                         <td>{{ $inventory->supplier->name }}</td>
                                         <td>{{ $inventory->created_at->format('d F Y') }}</td>
                                         <td>
                                             <a href="/inventory/{{ $inventory->id }}" class="btn btn-primary"><i class="bi bi-eye"></i> Detail</a>
                                             <!-- Order button triggers a modal -->
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#OrderModal-{{ $inventory->id }}"><i class="bi bi-pencil-square"></i> Order</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#OrderModal-{{ $inventory->id }}"><i class="bi bi-pencil-square"></i> Order</button>
                                         </td>
                                     </tr>
 
@@ -85,9 +88,17 @@
                                                             <label for="quantity-{{ $inventory->id }}" class="form-label">Quantity</label>
                                                             <input type="number" name="quantity" id="quantity-{{ $inventory->id }}" class="form-control" required>
                                                         </div>
-                                                        <div class="modal-footer">
+                                                        <div class="form-group mt-3">
+                                                            <label for="employee" class="form-label">Select Operator</label>
+                                                            <select name="employee" id="employee-{{ $inventory->id }}" class="form-select" required>
+                                                                @foreach($employees as $employee)
+                                                                    <option value="{{ $employee->id }}">{{ $employee->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="modal-footer mt-3">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Order</button>
+                                                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Order</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -115,7 +126,11 @@
         <script>
             $(document).ready(function() {
                 $('#inventory-table').DataTable();
-                $('.combobox').combobox();
+
+                // Initialize the combobox each time a modal is shown
+                $('.modal').on('shown.bs.modal', function () {
+                    $(this).find('.combobox').combobox();
+                });
             });
         </script>
     @endsection

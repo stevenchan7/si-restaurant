@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\PayrollAbsenceController;
 use App\Http\Controllers\PayrollController;
-use App\Http\Controllers\PayrollSalaryController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\PayrollSalaryController;
+use App\Http\Controllers\PayrollAbsenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,18 @@ use App\Http\Controllers\InventoryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/liatcomponen', function () {
+    return view('components.layouts.admin-layout');
+});
+
+Route::middleware('auth')->prefix('/notifications')->group(function () {
+    Route::get('/markAsRead/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
+});
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('components.layouts.admin-layout');
 });
 
 Route::get('/admin', function () {
@@ -60,18 +70,40 @@ Route::get('/token', function () {
 });
 
 
-// Route::resource('inventory', [InventoryController::class]);
 
-Route::prefix('inventory')->group(function () {
+Route::middleware('auth')->prefix('/inventory')->group(function () {
     Route::get('/', [InventoryController::class, 'index']);
     Route::get('/create', [InventoryController::class, 'create']);
     Route::post('/', [InventoryController::class, 'store']);
-    Route::get('/{inventory}', [InventoryController::class, 'show']);
+    Route::get('/{inventory}', [InventoryController::class, 'show'])->name('inventory.show');
     Route::get('/{id}/edit', [InventoryController::class, 'edit']);
     Route::post('/{id}/order', [InventoryController::class, 'order']);
     Route::put('/{id}', [InventoryController::class, 'update']);
     Route::delete('/{id}', [InventoryController::class, 'destroy']);
 });
+
+Route::middleware('auth')->get('/orderLog', [InventoryController::class, 'showLogs']);
+// Route::middleware('auth')->prefix('inventory')->group(function () {
+//     Route::get('/', [InventoryController::class, 'index']);
+//     Route::get('/create', [InventoryController::class, 'create']);
+//     Route::get('/log', [InventoryController::class, 'showLogs']);
+//     Route::post('/', [InventoryController::class, 'store']);
+//     Route::get('/{inventory}', [InventoryController::class, 'show']);
+//     Route::get('/{id}/edit', [InventoryController::class, 'edit']);
+//     Route::post('/{id}/order', [InventoryController::class, 'order']);
+//     Route::put('/{id}', [InventoryController::class, 'update']);
+//     Route::delete('/{id}', [InventoryController::class, 'destroy']);
+// });
+
+// Route::middleware('auth')->prefix('suppliers')->group(function(){
+//     Route::get('/', [SupplierController::class, 'index']);
+//     Route::get('/create', [SupplierController::class, 'create']);
+//     Route::post('/', [SupplierController::class, 'store']);
+//     Route::get('/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+//     Route::put('/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
+//     Route::delete('/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+//     Route::get('/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
+// });
 
 Route::prefix('suppliers')->group(function(){
     Route::get('/', [SupplierController::class, 'index']);
@@ -82,3 +114,4 @@ Route::prefix('suppliers')->group(function(){
     Route::delete('/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
     Route::get('/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
 });
+
