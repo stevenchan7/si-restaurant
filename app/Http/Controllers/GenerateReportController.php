@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderDetail;
 use App\Models\Salary;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Payroll;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class GenerateReportController extends Controller
 {
@@ -56,6 +57,20 @@ class GenerateReportController extends Controller
         );
 
         $pdf = Pdf::loadView('admin.salaryReport', $data);
+        return $pdf->stream();
+    }
+
+    public function generatePayrollReport(Request $request)
+    {
+        $today = date("Y-m-d H:i:s");
+        $payrolls = Payroll::all();
+
+        $data = array(
+            'date' => $today,
+            'payrolls' => $payrolls
+        );
+
+        $pdf = Pdf::loadView('admin.payrollReport', $data);
         return $pdf->stream();
     }
 }
