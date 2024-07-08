@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -37,7 +35,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.index') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -64,8 +62,8 @@
 
             <!-- Nav Item - Pages Collapse Menu Payroll -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('payroll') }}" data-toggle="collapse"
-                    data-target="#collapsePayroll" aria-expanded="true" aria-controls="collapsePayroll">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayroll"
+                    aria-expanded="true" aria-controls="collapsePayroll">
                     <i class="fa-solid fa-money-check-dollar"></i>
                     <span>Payroll</span>
                 </a>
@@ -78,14 +76,15 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Components -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComponents"
+                    aria-expanded="true" aria-controls="collapseComponents">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseComponents" class="collapse" aria-labelledby="headingComponents"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="buttons.html">Buttons</a>
@@ -169,8 +168,8 @@
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
                     and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
-                    Pro!</a>
+                <a class="btn btn-success btn-sm"
+                    href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
             </div>
 
         </ul>
@@ -191,8 +190,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2">
@@ -238,7 +236,7 @@
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 @if($notifications->count() > 0)
-                                    <span class="badge badge-danger badge-counter">{{ $notifications->count() }}</span>
+                                <span class="badge badge-danger badge-counter">{{ $notifications->count() }}</span>
                                 @endif
                             </a>
                             <!-- Dropdown - Alerts -->
@@ -248,29 +246,28 @@
                                     Notifications
                                 </h6>
                                 @if($notifications->count() > 0)
-                                    @foreach ($notifications as $notification)
-                                    <a class="dropdown-item d-flex align-items-center notification" href="#" data-id="{{ $notification->id }}"                                  <div class="mr-3">
-                                                <div class="icon-circle bg-primary">
-                                                    <i class="fas fa-file-alt text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">{{ $notification->created_at }}</div>
-                                                <div class="font-weight-bold">{{ $notification->title }}</div>
-                                                <span>{{ $notification->content }}</span>
-                                            </div>
-                                        </a>
-                                    @endforeach
+                                @foreach ($notifications as $notification)
+                                <a class="dropdown-item d-flex align-items-center notification" href="#"
+                                    data-id="{{ $notification->id }}">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="small text-gray-500">{{ $notification->created_at }}</div>
+                                        <span class="font-weight-bold">{{ $notification->title }}</span>
+                                        <div class="text-gray-600">{{ $notification->content }}</div>
+                                    </div>
+                                </a>
+                                @endforeach
                                 @else
-                                    <a class="dropdown-item" href="#">
-                                        No new notifications.
-                                    </a>
+                                <a class="dropdown-item" href="#">
+                                    No new notifications.
+                                </a>
                                 @endif
-                                <a class="dropdown-item text-center small text-gray-500" href="/notifications">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500"
+                                    href="/notifications">Show All Alerts</a>
                             </div>
                         </li>
-                        
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -322,8 +319,8 @@
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                    <div class="text-center my-auto">
+                        <span>Copyright &copy; Your Website {{ date('Y') }}</span>
                     </div>
                 </div>
             </footer>
@@ -356,7 +353,7 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit">Logout</button>
+                        <button type="submit" class="btn btn-primary">Logout</button>
                     </form>
                 </div>
             </div>
@@ -375,9 +372,10 @@
 
     {{-- SWAL --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     {{-- Custom scripts --}}
     @yield('script')
+
 </body>
 
 </html>
