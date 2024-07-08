@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,4 +55,7 @@ Route::prefix('payroll')->group(function () {
 
 Route::get('/order', [OrderController::class,'index'])->name('order');
 Route::get('/order/menu/{id}', [MenuController::class, 'index'])->name('menu_selection');
+Route::get('/order/{id}/payment', [PaymentController::class,'index'])->name('payment');
 Route::post('/order/create', [OrderController::class,'store'])->name('order.create');
+Route::post('/order/menu/{id}/add',[MenuController::class,'store'])->name('menu.add');
+Route::post('/order/{id}/payment/action',[PaymentController::class,'update'])->name('payment_action');

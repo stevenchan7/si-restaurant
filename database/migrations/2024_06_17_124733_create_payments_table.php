@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->string('payment_method');
             $table->dateTime('payment_date');
-            $table->string('status');
+            $table->string('total');
             $table->enum('payment_status', ['pending', 'completed', 'failed'])->default('pending');
 
             $table->timestamps();
