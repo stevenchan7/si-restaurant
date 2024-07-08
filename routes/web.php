@@ -43,18 +43,20 @@ Route::middleware('auth')->group(function () {
         Route::delete('/dayoff', [PayrollAbsenceController::class, 'destroyDayoff'])->name('dayoff.delete');
         Route::get('/salary', [PayrollSalaryController::class, 'index'])->name('payroll.salary');
         // Route::post('/salary', function () {
-        //     return response()->json(['msg' => 'hello world']);
-        // })->name('salary.post');
-        Route::post('/salary', [PayrollSalaryController::class, 'store'])->name('salary.post');
-        Route::put('/salary', [PayrollSalaryController::class, 'update'])->name('salary.update');
-        Route::delete('/salary', [PayrollSalaryController::class, 'destroy'])->name('salary.delete');
-    });
-
+            //     return response()->json(['msg' => 'hello world']);
+            // })->name('salary.post');
+            Route::post('/salary', [PayrollSalaryController::class, 'store'])->name('salary.post');
+            Route::put('/salary', [PayrollSalaryController::class, 'update'])->name('salary.update');
+            Route::delete('/salary', [PayrollSalaryController::class, 'destroy'])->name('salary.delete');
+        });
+        
+    Route::get('/payroll-details/{employee:id}', [PayrollController::class, 'show']);
     Route::get('/admin/dashboard-data-by-date', [PayrollController::class, 'dashboardDataByDate'])->name('admin.dashboardDataByDate');
     Route::get('/admin/dashboard', [PayrollController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/generate-report', [GenerateReportController::class, 'generateReport'])->name('generateReport');
     Route::get('/admin/generate-salary-report', [GenerateReportController::class, 'generateSalaryReport'])->name('generateSalaryReport');
     Route::get('/admin/generate-payroll-report', [GenerateReportController::class, 'generatePayrollReport'])->name('generatePayrollReport');
+    Route::get('/admin/generate-payroll-details-report/{employee:id}', [GenerateReportController::class, 'generatePayrollDetailsReport']);
 });
 
 // Token

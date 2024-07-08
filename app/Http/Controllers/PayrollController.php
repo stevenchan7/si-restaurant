@@ -196,9 +196,12 @@ class PayrollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Employee $employee)
     {
-        //
+        return view('pages.payroll.employee', [
+            'employee' => $employee,
+            'payrolls' => Payroll::where('employee_id', $employee->id)->get()
+        ]);
     }
 
     /**

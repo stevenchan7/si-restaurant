@@ -148,7 +148,7 @@
                     <tbody>
                         @foreach ($payrolls as $payroll)
                         <tr>
-                            <td>{{ $payroll->employee->fullname }}</td>
+                            <td><a href="/payroll-details/{{ $payroll->employee_id }}">{{ $payroll->employee->fullname }}</a></td>
                             <td>{{ $payroll->salary }}</td>
                             <td>{{ $payroll->overtime }}</td>
                             <td>{{ $payroll->cut }}</td>

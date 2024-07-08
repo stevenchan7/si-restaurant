@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Salary;
 use App\Models\Payroll;
+use App\Models\Employee;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -71,6 +72,21 @@ class GenerateReportController extends Controller
         );
 
         $pdf = Pdf::loadView('admin.payrollReport', $data);
+        return $pdf->stream();
+    }
+
+    public function generatePayrollDetailsReport(Employee $employee)
+    {
+        $today = date("Y-m-d H:i:s");
+        $payrolls = Payroll::where('employee_id', $employee->id)->get();
+
+        $data = array(
+            'date' => $today,
+            'employee' => $employee,
+            'payrolls' => $payrolls
+        );
+
+        $pdf = Pdf::loadView('admin.payrollDetailsReport', $data);
         return $pdf->stream();
     }
 }
