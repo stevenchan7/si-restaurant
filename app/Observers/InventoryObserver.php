@@ -67,18 +67,4 @@ class InventoryObserver
     /**
      * Handle the Inventory "retrieved" event.
      */
-    public function retrieved(Inventory $inventory): void
-    {
-        if ($inventory->stock < $inventory->minimum_stock && !Notification::where('ingredient_id', $inventory->id)->exists()) {
-            Log::info('Stock is below minimum threshold for inventory: ' . $inventory->name);
-
-            Notification::create([
-                'title' => 'Stock Alert',
-                'content' => "The stock for {$inventory->name} is below the minimum threshold.",
-                'ingredient_id' => $inventory->id,
-            ]);
-
-            Log::info('Notification created for inventory: ' . $inventory->name);
-        }
-    }
 }
