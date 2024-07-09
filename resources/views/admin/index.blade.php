@@ -110,17 +110,17 @@
 
         <!-- Bar Chart -->
         <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Monthly Revenue</h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-bar">
-                    <canvas id="myBarChart"></canvas>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Monthly Revenue</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </div>
 
@@ -237,8 +237,8 @@
         });
     </script>
 
-<script>
-    var revenuePerMonth = @json($revenuePerMonth);
+    <script>
+        var revenuePerMonth = @json($revenuePerMonth);
     var months = [];
     var revenues = [];
 
@@ -336,7 +336,7 @@ var myBarChart = new Chart(ctx, {
     },
   }
 });
-</script>
+    </script>
 
     {{-- Ajax script --}}
     <script type="text/javascript">
