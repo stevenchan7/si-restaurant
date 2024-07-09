@@ -28,8 +28,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: sinichi21
+          password: 0Pr2bJGOY2dbmSY
 
       - name: Build and push Docker image
         run: |
@@ -38,9 +38,9 @@ jobs:
       - name: SSH to Server and Deploy
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: pramukaharustau.cloud
+          username: devops
+          key: p5BNy9VPvBirsU8
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/pbw-restaurant:latest
             docker-compose -f /pbw/restaurant/docker-compose.yml up -d
