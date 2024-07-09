@@ -47,4 +47,10 @@ class Employee extends Model
     {
         return $this->belongsToMany(Role::class, 'employee_role', 'employee_id', 'role_id');
     }
+    public function orderLogs(): HasMany
+    {
+        return $this->hasMany(OrderLog::class, 'employee_id');
+    }
+
+    protected $primaryKey = 'id';
 }
