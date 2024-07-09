@@ -39,7 +39,7 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 EXPOSE 80
 
 # Generate APP_KEY
-RUN cp .env.example .env && php artisan key:generate
+# RUN cp .env.example .env && php artisan key:generate
 
 # Start Supervisor
 CMD ["/usr/bin/supervisord"]
