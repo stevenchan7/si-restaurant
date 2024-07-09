@@ -21,5 +21,20 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             OrderDetailSeeder::class
         ]);
+        $this->call([
+            SupplierSeeder::class
+        ]);
+        $this->call([
+            InventorySeeder::class
+        ]);
+        // $this->call([
+        //     OrderLogSeeder::class
+        // ]);
+        $this->call([
+            RecipesSeeder::class
+        ]);
+        $this->call([
+            MenuIngredientsSeeder::class
+        ]);
     }
 }

@@ -1,0 +1,46 @@
+name: dev
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Manually trigger the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: sinichi21
+          password: 0Pr2bJGOY2dbmSY
+
+      - name: Build and push Docker image
+        run: |
+          docker buildx build --cache-from type=local,src=/tmp/.buildx-cache --cache-to type=local,dest=/tmp/.buildx-cache --push --tag sinichi21/pbw-restaurant:latest .
+
+      - name: SSH to Server and Deploy
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: pramukaharustau.cloud
+          username: devops
+          key: p5BNy9VPvBirsU8
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/pbw-restaurant:latest
+            docker-compose -f /pbw/restaurant/docker-compose.yml up -d
