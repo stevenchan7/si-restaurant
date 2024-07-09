@@ -3,7 +3,14 @@
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
 
-    <h5>Payroll</h5>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+        <h5>Payroll</h5>
+        <div class="row justify-content-end">
+            <a href="{{ route('generatePayrollReport') }}" class="btn btn-info"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Payroll Report</a>
+        </div>
+    </div>
 
     <div class="row justify-content-end">
         <button id="overtimeCreateBtn" type="button" class="btn btn-primary" data-toggle="modal"
@@ -141,7 +148,7 @@
                     <tbody>
                         @foreach ($payrolls as $payroll)
                         <tr>
-                            <td>{{ $payroll->employee->fullname }}</td>
+                            <td><a href="/payroll-details/{{ $payroll->employee_id }}">{{ $payroll->employee->fullname }}</a></td>
                             <td>{{ $payroll->salary }}</td>
                             <td>{{ $payroll->overtime }}</td>
                             <td>{{ $payroll->cut }}</td>

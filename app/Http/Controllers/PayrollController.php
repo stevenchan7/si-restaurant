@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Menu;
+use App\Models\OrderDetail;
 use App\Models\Payroll;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PayrollController extends Controller
@@ -119,12 +122,86 @@ class PayrollController extends Controller
         ]);
     }
 
+    public function dashboard(Request $request)
+    {
+        $from = Carbon::now()->subMonths(6);
+
+        $orderTotalPerMonth = OrderDetail::where('created_at', '>=', $from)
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        // pendapatan per bulan
+        $revenuePerMonth = OrderDetail::join('menus', 'order_details.menu_id', '=', 'menus.id')
+        ->where('order_details.created_at', '>=', $from)
+        ->selectRaw('DATE_FORMAT(order_details.created_at, "%Y-%m") as month, SUM(order_details.total) as sum_total, SUM(order_details.qty * menus.base_price) as sum_modal')
+        ->groupBy('month')
+        ->orderBy('month', 'asc')
+        ->get()
+        ->map(function ($item) {
+            $item->revenue = $item->sum_total - $item->sum_modal;
+            return $item;
+        });
+
+        return view('admin.index')
+            ->with('orderTotalPerMonth', $orderTotalPerMonth)
+            ->with('revenuePerMonth', $revenuePerMonth);
+    }
+
+    public function dashboardDataByDate(Request $request)
+    {
+        $validated = $request->validate([
+            'from' => ['required', 'date'],
+            'to' => ['required', 'date']
+        ]);
+
+        $from = $validated['from'];
+        $to = $validated['to'];
+
+        $count = OrderDetail::where('created_at', '>=', $from)
+            ->where('created_at', '<=', $to)
+            ->count();
+
+        $topMenuIds = OrderDetail::where('created_at', '>=', $from)
+            ->where('created_at', '<=', $to)
+            ->selectRaw('menu_id, SUM(qty) as total_qty')
+            ->groupBy('menu_id')
+            ->orderBy('total_qty', 'desc')
+            ->limit(3)
+            ->pluck('menu_id');
+
+        $topMenus = array();
+
+        foreach ($topMenuIds as $id) {
+            $menu = Menu::findOrFail($id);
+            array_push($topMenus, $menu);
+        }
+
+        $res = OrderDetail::join('menus', 'order_details.menu_id', '=', 'menus.id')
+            ->selectRaw('SUM(total) as sum_total, SUM(order_details.qty * menus.base_price) as sum_modal')
+            ->where('order_details.created_at', '>=', $from)
+            ->where('order_details.created_at', '<=', $to)
+            ->first();
+
+        $revenue = $res->sum_total - $res->sum_modal;
+
+        return response()->json([
+            'count' => $count,
+            'topMenus' => $topMenus,
+            'revenue' => $revenue
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Employee $employee)
     {
-        //
+        return view('pages.payroll.employee', [
+            'employee' => $employee,
+            'payrolls' => Payroll::where('employee_id', $employee->id)->get()
+        ]);
     }
 
     /**

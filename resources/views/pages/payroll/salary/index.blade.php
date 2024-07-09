@@ -4,8 +4,14 @@
     <link href="{{ asset('vendor/bootstrap-combobox/css/bootstrap-combobox.css') }}" rel="stylesheet">
     @endsection
 
-    <h5>Salary</h5>
-
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+        <h5>Salary</h5>
+        <div class="row justify-content-end">
+            <a href="{{ route('generateSalaryReport') }}" class="btn btn-info"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Salary Report</a>
+        </div>
+    </div>
     <div class="row justify-content-end">
         <button id="salary-create-btn" type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#createSalaryModal">
