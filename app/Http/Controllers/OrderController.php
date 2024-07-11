@@ -21,7 +21,6 @@ class OrderController extends Controller
     }
     public function store(Request $request)
     {
-        $order= DB::table('orders')->get();
         $order = new order();
         $order->employee_id = $request->get('employee');
         $order->customer_id = $request->get('customer');

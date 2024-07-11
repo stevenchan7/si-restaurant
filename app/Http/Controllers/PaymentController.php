@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\order;
+use App\Models\orderDetails;
 use App\Models\payment;
 
 class PaymentController extends Controller
@@ -15,7 +16,8 @@ class PaymentController extends Controller
     {
         $id = $request->route('id');
         $payments = DB::table('payments')->where('order_id',$id)->get();
-        return view('pages.menu.payment', compact('payments','id'));
+        $selectedMenus = session('selectedMenus');
+        return view('pages.menu.payment', compact('payments','id','selectedMenus'));
     }
     public function update(Request $request)
     {
